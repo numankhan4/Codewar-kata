@@ -1,0 +1,21 @@
+function binaryGap(n: number): number {
+    const bin = n.toString(2);
+    // May get better speed by trimming trailing '0' from left and right?
+    // const bin = n.toString(2).replace(/^0+|0+$/g, '');
+    let distance = 0;
+    let left = -1;
+    
+    for (let i=0; i<bin.length; i++) {
+        if (bin[i] === '1') {
+            if (left !== -1) {
+                // Record distance.
+                distance = Math.max(distance, i - left);
+            }
+
+            // Update left pointer to next '1' location.
+            left = i;
+        }
+    }
+    
+    return distance;
+};
