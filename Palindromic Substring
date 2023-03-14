@@ -1,0 +1,54 @@
+
+Palindromic Substring
+Have the function PalindromicSubstring(str) take the str parameter being passed and find the longest palindromic substring, which means the longest substring which is read the same forwards as it is backwards. For example: if str is "abracecars" then your program should return the string racecar because it is the longest palindrome within the input string.
+
+The input will only contain lowercase alphabetic characters. The longest palindromic substring will always be unique, but if there is none that is longer than 2 characters, return the string none.
+
+Input: "hellosannasmith"
+Output: sannas
+
+Input: "abcdefgg"
+Output: none
+
+========================================
+
+Solution 
+======================================
+
+function PalindromicSubstring(str) { 
+    let longest = '';
+  
+    // Loop through each character in the string
+    for(let i=0; i<str.length; i++){
+      // Loop through each posible palindrome character at character [i] 
+      for (let j=0; i-j >= 0 && i + j <str.length; j++){
+        // check if the character around the center are same
+        if(str[i - j] !== str[i+j]){
+          break;
+        }
+        // check if current palindrome is longer than current longest palindrome. 
+        const current = str.slice(i - j, i+j+1);
+        if (current.length > longest.length){
+          longest = current;
+        }
+      }
+      // Loop through each posible palindrome center between i and i+i
+      for (let j = 0; i-j>=0 && i+j+1 < str.length; j++){
+        // check if the character around the center are same
+          if(str[i - j] !== str[i+j+1]){
+            break;
+          }
+          // check if current palindrome is longer than current longest palindrome. 
+          const current = str.slice(i - j, i+j+2);
+          if (current.length > longest.length){
+            longest = current;
+          }
+      }
+    }
+    
+    return longest.length>2 ? longest: "none";
+  }
+  
+  
+  // keep this function call here 
+  console.log(PalindromicSubstring(readline()));
